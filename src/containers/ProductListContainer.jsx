@@ -5,7 +5,7 @@ import ProductCardComponent from "../components/ProductCardComponent";
 //import jsonData from "../product.json";
 const axios = require('axios').default;
 
-const ProductListContainer = () => {
+const ProductListContainer = (props) => {
     const [userList, setUserList] = useState([]);
     useEffect(() => {
         axios.get('https://reqres.in/api/users?page=2')

@@ -1,0 +1,39 @@
+{
+    "usersList": [
+      {
+        "id": 1,
+        "first_name": "Rutuja",
+        "last_name": "Holmes",
+        "email": "rutu@gmail.com",
+        "password": "1234"
+      },
+      {
+        "id": 2,
+        "first_name": "Cookie",
+        "last_name": "Walter",
+        "email": "cookie@gmail.com",
+        "password": "1234"
+      },
+      {
+        "id": 3,
+        "first_name": "Dave",
+        "last_name": "Warner",
+        "email": "dave@gmail.com",
+        "password": "1234"
+      },
+      {
+        "id": 4,
+        "first_name": "Robert",
+        "last_name": "stark",
+        "email": "stark@yahoo.com",
+        "password": "1234"
+      },
+      {
+        "id": 5,
+        "first_name": "Steve",
+        "last_name": "Rogers",
+        "email": "steve@google.com",
+        "password": "1234"
+      }
+    ]
+  } 
