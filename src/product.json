@@ -1,0 +1,8 @@
+[
+  {"id": 1, "category": "Sporting Goods", "price": 49.99, "stocked": true, "name": "Football", "description": "high quality football item"},
+  {"id": 2, "category": "Sporting Goods", "price": 9.99, "stocked": true, "name": "Baseball", "description": "high quality Baseball item"},
+  {"id": 3, "category": "Sporting Goods", "price": 29.99, "stocked": false, "name": "Basketball", "description": "high quality basketball item"},
+  {"id": 4, "category": "Electronics", "price": 99.99, "stocked": true, "name": "iPod Touch", "description": "high quality ipod touch item"},
+  {"id": 6, "category": "Electronics", "price": 399.99, "stocked": false, "name": "iPhone 5", "description": "high quality iphone item"},
+  {"id": 5, "category": "Electronics", "price": 199.99, "stocked": true, "name": "Nexus 7", "description": "high quality nexus item"}
+]
