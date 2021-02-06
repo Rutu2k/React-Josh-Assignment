@@ -12,7 +12,8 @@
         "first_name": "Cookie",
         "last_name": "Walter",
         "email": "cookie@gmail.com",
-        "password": "1234"
+        "password": "1234",
+        "photo": "https://i.pinimg.com/474x/c7/4b/74/c74b74d773e25ce6f01cc095ecad0ed4.jpg"
       },
       {
         "id": 3,

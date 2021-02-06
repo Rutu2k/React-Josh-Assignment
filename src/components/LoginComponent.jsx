@@ -18,8 +18,11 @@ class LoginComponent extends Component {
         for(let i = 0; i < this.users.length;i++){
             if(this.state.email === this.users[i].email && 
                 this.state.password === this.users[i].password){
-                    this.currentUser = this.users[i].id
-                    // console.log(this.currentUser)
+                    localStorage.setItem("id", this.users[i].id);
+                    localStorage.setItem("first_name", this.users[i].first_name);
+                    localStorage.setItem("last_name", this.users[i].last_name);
+                    localStorage.setItem("email", this.users[i].email);
+                    localStorage.setItem("photo", this.users[i].photo);
                 return true;
             }
         }
@@ -33,8 +36,7 @@ class LoginComponent extends Component {
             this.users = response.data;
             if(this.correctLogin()){
                console.log(this.currentUser);
-               this.props.history.push("/userlist");
-               //<ProductListContainer id = {this.currentUser}></ProductListContainer> 
+               this.props.history.push("/userProfile");
             }
             else{
                 alert("Wrong credentials");
