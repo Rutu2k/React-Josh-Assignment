@@ -5,13 +5,16 @@ import { Form, Col, UncontrolledPopover, PopoverBody, FormFeedback, FormGroup, L
 
 
 const axios = require('axios').default;
+
 let initialState = {
     email : '',
-    password : ''
+    password : '',
+    emailError : '',
+    passwordError : ''
 }
 let schema = yup.object().shape({
     email: yup.string().email(),
-    password: yup.string().required().min(8)
+    password: yup.string().required().min(4).max(10)
 });
 const LoginContainer = (props) => {
 
@@ -28,6 +31,7 @@ const LoginContainer = (props) => {
                 alert("Wrong credentials");
             }
         }, (error) => {
+        alert("Invalid credentials");
         console.log(error);
         });
     }
@@ -39,26 +43,41 @@ const LoginContainer = (props) => {
                 return {...state, email: payload.email}
             case "updatePassword":
                 return {...state, password: payload.password}
+            case "updateEmailError":
+                return {...state, emailError: payload.emailError}
+            case "updatePasswordError":
+                return {...state, passwordError: payload.passwordError}
             default:
                 return state;
         }
     }
 
     const [loginState, dispatch] = useReducer(loginReducer, initialState);
-    console.log(loginState);
 
     const submitForm = (e) => {
         e.preventDefault();
-        schema.isValid({
-            email : loginState.email,
-            password: loginState.password
-        }).then((valid) => {
-            if(valid){
-                loginAPI();
-            }else{
-                console.log(valid);
+        schema.validate (
+            {email: loginState.email, 
+            password: loginState.password},{abortEarly: false}
+        ).then((res)=> {
+            console.log(res);
+            loginAPI();
+        }).catch((err) => {
+            console.log("in catch")
+            let errObj = {}
+            for(let{path, message} of (err.inner)){
+                errObj[path] = message
+            }  
+            if(errObj.email)
+            {
+                dispatch({type: "updateEmailError", payload: {emailError: errObj.email}})
             }
-        });
+            if(errObj.password)
+            {
+                dispatch({type: "updatePasswordError", payload: {passwordError: errObj.password}})
+            }
+            console.log(errObj);
+         })
     };
 
     const handleEmailChange=(e)=> {
@@ -67,6 +86,7 @@ const LoginContainer = (props) => {
     }
 
     const handlePasswordChange=(e)=>{
+        e.preventDefault();
         dispatch({type: "updatePassword", payload: {password: e.target.value}})
     }
     return(
@@ -79,16 +99,17 @@ const LoginContainer = (props) => {
             <Col className ="mx-2">
                 <FormGroup>
                 <Label>Email</Label>
-                <Input type="email"
+                <Input 
+                // type="email"
                     name="email"
                     id="exampleEmail"
                     placeholder="myemail@email.com"
                     value = {loginState.email}
                     onChange = {handleEmailChange}
                     required
-                    invalid 
+                    invalid = {loginState.emailError !== ""}
                 />
-                <FormFeedback type="invalid" target="exampleEmail">Enter the Valid Email ID</FormFeedback>
+                <FormFeedback type="invalid" target="exampleEmail">{loginState.emailError}</FormFeedback>
                 </FormGroup>
             </Col> 
             <Col className ="mx-2">
@@ -102,8 +123,10 @@ const LoginContainer = (props) => {
                     value={loginState.password}
                     onChange={handlePasswordChange}
                     required
+                    invalid = {loginState.passwordError !== ""}
                     Launch Popover 
                 />
+                <FormFeedback type="invalid" target="exampleEmail">{loginState.passwordError}</FormFeedback>
                 <UncontrolledPopover placement="left" trigger="hover" target="examplePassword">
                     <PopoverBody>Password should have minimum 8 characters, can contain: alphanumeric characters, @ # . _ </PopoverBody>
                 </UncontrolledPopover>
