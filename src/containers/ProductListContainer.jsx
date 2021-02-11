@@ -1,5 +1,6 @@
 import {Container, Row, CardDeck} from "reactstrap";
 import { useEffect, useState } from "react";
+import { Nav, NavItem, NavLink} from 'reactstrap';
 import ProductCardComponent from "../components/ProductCardComponent";
 
 //import jsonData from "../product.json";
@@ -20,20 +21,27 @@ const ProductListContainer = (props) => {
     },[]);
 
     const productList = userList.map((ele) => {
-        const {id, email, first_name, last_name} = ele;
+        const {id, email, first_name, last_name, avatar} = ele;
         return <ProductCardComponent 
         id = {id} 
         key = {id}
         first_name = {first_name}
         last_name = {last_name}
-        email = {email}/>
+        email = {email}
+        avatar = {avatar}/>
     });
 
     return(
         <div className="bg-secondary">
+            <h1 className="text-white text-center p-4">Welcome User!</h1>
+            <Nav className="d-flex justify-content-xl-center">
+                <NavItem className="bg-white mt-2 shadow rounded">
+                    <NavLink className="text-dark">Logout</NavLink>
+                </NavItem>
+            </Nav>
             <Container>
-                <Row className= "mt-5 pt-5 mb-5 pb-5">
-                    <CardDeck style={{display: 'flex', flexDirection: 'row'}}>{productList}</CardDeck>
+                <Row className= "mt-2 pt-5 mb-5 pb-5">
+                    <CardDeck>{productList}</CardDeck>
                 </Row>
             </Container> 
         </div>

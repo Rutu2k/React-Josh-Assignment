@@ -1,12 +1,11 @@
-import { Card, CardBody, CardText, CardHeader} from "reactstrap";
+import { Card, CardBody, CardText, CardImg} from "reactstrap";
 
 const ProductCardComponent = (props) => {
-    const {id, email, first_name, last_name} = props;
+    const { email, first_name, last_name, avatar} = props;
     return (
-        <Card  className=" shadow p-3 mb-5 bg-white rounded" body color='Dark' style={{ width: '100%' }}>
-            <CardHeader>{first_name}</CardHeader>
+        <Card className=" myCard shadow p-3 bg-white rounded" body color='Dark'>
             <CardBody>
-                <CardText>{id} </CardText>
+                <CardImg src={avatar}/>
                 <CardText>{last_name} {first_name}</CardText>
                 <CardText>{email}</CardText>
             </CardBody> 

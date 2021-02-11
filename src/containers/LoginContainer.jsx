@@ -1,8 +1,7 @@
 import { useReducer } from "react";
 import { withRouter } from "react-router-dom";
 import * as yup from 'yup';
-import { Form, Col, UncontrolledPopover, PopoverBody, FormFeedback, FormGroup, Label, Input, Button, Container, Row } from "reactstrap";
-
+import LoginComponent from "../components/LoginComponent";
 
 const axios = require('axios').default;
 
@@ -81,63 +80,19 @@ const LoginContainer = (props) => {
     };
 
     const handleEmailChange=(e)=> {
-        e.preventDefault();
-        dispatch({type: "updateEmail", payload: {email: e.target.value}})
+        dispatch({type: "updateEmail", payload: {email: e.target.value, emailError:loginState.emailError=""}})
     }
 
     const handlePasswordChange=(e)=>{
-        e.preventDefault();
-        dispatch({type: "updatePassword", payload: {password: e.target.value}})
+        dispatch({type: "updatePassword", payload: {password: e.target.value, emailError:loginState.emailError=""}})
     }
     return(
-        <Container>
-        <Row className = " bg-secondary  d-flex justify-content-xl-center mt-5 p-5">
-        <Form md = {8} className=" form shadow p-3 mb-3 bg-white rounded mb-0 col-md-6 align-self-center" onSubmit={submitForm}>
-            <h3 className="text-center pt-3 p-2 ">Login</h3>
-            <h6 className="text-center mb-3">Welcome User!</h6>
-
-            <Col className ="mx-2">
-                <FormGroup>
-                <Label>Email</Label>
-                <Input 
-                // type="email"
-                    name="email"
-                    id="exampleEmail"
-                    placeholder="myemail@email.com"
-                    value = {loginState.email}
-                    onChange = {handleEmailChange}
-                    required
-                    invalid = {loginState.emailError !== ""}
-                />
-                <FormFeedback type="invalid" target="exampleEmail">{loginState.emailError}</FormFeedback>
-                </FormGroup>
-            </Col> 
-            <Col className ="mx-2">
-                <FormGroup>
-                <Label for="examplePassword">Password</Label>
-                <Input
-                    type="password"
-                    name="password"
-                    id="examplePassword"
-                    placeholder="********"
-                    value={loginState.password}
-                    onChange={handlePasswordChange}
-                    required
-                    invalid = {loginState.passwordError !== ""}
-                    Launch Popover 
-                />
-                <FormFeedback type="invalid" target="exampleEmail">{loginState.passwordError}</FormFeedback>
-                <UncontrolledPopover placement="left" trigger="hover" target="examplePassword">
-                    <PopoverBody>Password should have minimum 8 characters, can contain: alphanumeric characters, @ # . _ </PopoverBody>
-                </UncontrolledPopover>
-                </FormGroup>
-            </Col>
-            <Col className="text-center mt-5 mb-5">
-            <Button variant="primary" size="lg" block>Submit</Button>
-            </Col>
-        </Form>
-        </Row>
-        </Container>
+        <LoginComponent 
+        submitButton = {submitForm}
+        loginState = {loginState}
+        handleEmailChange = {handleEmailChange}
+        handlePasswordChange = {handlePasswordChange}
+        />
     );
 }
 
