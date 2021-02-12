@@ -4,7 +4,7 @@ import { Form, Col, UncontrolledPopover, PopoverBody, FormFeedback, FormGroup, L
 const LoginComponent = (props) => {
     return(
         <Container>
-        <Row className = " bg-secondary  d-flex justify-content-xl-center mt-5 p-5">
+        <Row className = " bg-dark  d-flex justify-content-xl-center m-5 p-5">
         <Form md = {8} className=" form shadow p-3 mb-3 bg-white rounded mb-0 col-md-6 align-self-center" onSubmit={props.submitButton}>
             <h3 className="text-center pt-3 p-2 ">Login</h3>
             <h6 className="text-center mb-3">Welcome User!</h6>
@@ -46,7 +46,7 @@ const LoginComponent = (props) => {
                 </FormGroup>
             </Col>
             <Col className="text-center mt-5 mb-5">
-            <Button variant="primary" size="lg" block>Submit</Button>
+            <Button variant="dark" size="lg" block>Submit</Button>
             </Col>
         </Form>
         </Row>

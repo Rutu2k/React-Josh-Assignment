@@ -1,9 +1,6 @@
 import {Container, Row, CardDeck} from "reactstrap";
 import { useEffect, useState } from "react";
-import { Nav, NavItem, NavLink} from 'reactstrap';
 import ProductCardComponent from "../components/ProductCardComponent";
-
-//import jsonData from "../product.json";
 const axios = require('axios').default;
 
 const ProductListContainer = (props) => {
@@ -32,15 +29,9 @@ const ProductListContainer = (props) => {
     });
 
     return(
-        <div className="bg-secondary">
-            <h1 className="text-white text-center p-4">Welcome User!</h1>
-            <Nav className="d-flex justify-content-xl-center">
-                <NavItem className="bg-white mt-2 shadow rounded">
-                    <NavLink className="text-dark">Logout</NavLink>
-                </NavItem>
-            </Nav>
+        <div className="bg-white">
             <Container>
-                <Row className= "mt-2 pt-5 mb-5 pb-5">
+                <Row className= "mt-2 pt-5 mb-5">
                     <CardDeck>{productList}</CardDeck>
                 </Row>
             </Container> 
