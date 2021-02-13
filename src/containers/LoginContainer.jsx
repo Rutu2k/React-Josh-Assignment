@@ -1,27 +1,20 @@
-import { useReducer } from "react";
 import { withRouter } from "react-router-dom";
-import * as yup from 'yup';
-
+import {schema} from '../shared/loginSchema';
 import LoginComponent from "../components/LoginComponent";
+import { useDispatch, useSelector } from "react-redux";
+import LOGIN_REDUCERS from "../shared/actionConstants";
 
 const axios = require('axios').default;
 
-let initialState = {
-    email : '',
-    password : '',
-    emailError : '',
-    passwordError : ''
-}
-let schema = yup.object().shape({
-    email: yup.string().email(),
-    password: yup.string().required().min(4).max(10)
-});
 const LoginContainer = (props) => {
+
+    const dispatch = useDispatch();
+    const result = useSelector(state => state);
 
     const loginAPI = () => {
         axios.post('https://reqres.in/api/login' , {
-            email: loginState.email,
-            password: loginState.password
+            email: result.email,
+            password: result.password
         }).then((response) => {  
             console.log(response);
             if(response.status === 200){
@@ -35,62 +28,44 @@ const LoginContainer = (props) => {
         console.log(error);
         });
     }
-
-    const loginReducer = (state, action) => {
-        const { type, payload } = action;
-        switch (type) {
-            case "updateEmail":
-                return {...state, email: payload.email}
-            case "updatePassword":
-                return {...state, password: payload.password}
-            case "updateEmailError":
-                return {...state, emailError: payload.emailError}
-            case "updatePasswordError":
-                return {...state, passwordError: payload.passwordError}
-            default:
-                return state;
-        }
-    }
-
-    const [loginState, dispatch] = useReducer(loginReducer, initialState);
-
+  
     const submitForm = (e) => {
         e.preventDefault();
-        schema.validate (
-            {email: loginState.email, 
-            password: loginState.password},{abortEarly: false}
+        schema.validate ({
+            email: result.email, 
+            password: result.password
+        },{abortEarly: false}
         ).then((res)=> {
             console.log(res);
             loginAPI();
         }).catch((err) => {
-            console.log("in catch")
             let errObj = {}
             for(let{path, message} of (err.inner)){
                 errObj[path] = message
             }  
             if(errObj.email)
             {
-                dispatch({type: "updateEmailError", payload: {emailError: errObj.email}})
+                dispatch({type: LOGIN_REDUCERS.SET_EMAIL_ERROR, payload: {emailError: errObj.email}})
             }
             if(errObj.password)
             {
-                dispatch({type: "updatePasswordError", payload: {passwordError: errObj.password}})
+                dispatch({type: LOGIN_REDUCERS.SET_PASSWORD_ERROR, payload: {passwordError: errObj.password}})
             }
             console.log(errObj);
          })
     };
 
     const handleEmailChange=(e)=> {
-        dispatch({type: "updateEmail", payload: {email: e.target.value, emailError:loginState.emailError=""}})
+        dispatch({type: LOGIN_REDUCERS.SET_EMAIL, payload: {email: e.target.value, emailError:result.emailError=""}})
     }
 
     const handlePasswordChange=(e)=>{
-        dispatch({type: "updatePassword", payload: {password: e.target.value, emailError:loginState.emailError=""}})
+        dispatch({type: LOGIN_REDUCERS.SET_PASSWORD, payload: {password: e.target.value, emailError:result.emailError=""}})
     }
     return(
         <LoginComponent 
         submitButton = {submitForm}
-        loginState = {loginState}
+        result = {result}
         handleEmailChange = {handleEmailChange}
         handlePasswordChange = {handlePasswordChange}
         />

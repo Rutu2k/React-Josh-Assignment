@@ -17,12 +17,12 @@ const LoginComponent = (props) => {
                     name="email"
                     id="exampleEmail"
                     placeholder="myemail@email.com"
-                    value = {props.loginState.email}
+                    value = {props.result.email}
                     onChange = {props.handleEmailChange}
                     required
-                    invalid = {props.loginState.emailError !== ""}
+                    invalid = {props.result.emailError !== ""}
                 />
-                <FormFeedback type="invalid" target="exampleEmail">{props.loginState.emailError}</FormFeedback>
+                <FormFeedback type="invalid" target="exampleEmail">{props.result.emailError}</FormFeedback>
                 </FormGroup>
             </Col> 
             <Col className ="mx-2">
@@ -33,13 +33,13 @@ const LoginComponent = (props) => {
                     name="password"
                     id="examplePassword"
                     placeholder="********"
-                    value={props.loginState.password}
+                    value={props.result.password}
                     onChange={props.handlePasswordChange}
                     required
-                    invalid = {props.loginState.passwordError !== ""}
+                    invalid = {props.result.passwordError !== ""}
                     Launch Popover 
                 />
-                <FormFeedback type="invalid" target="exampleEmail">{props.loginState.passwordError}</FormFeedback>
+                <FormFeedback type="invalid" target="exampleEmail">{props.result.passwordError}</FormFeedback>
                 <UncontrolledPopover placement="left" trigger="hover" target="examplePassword">
                     <PopoverBody>Password should have minimum 8 characters, can contain: alphanumeric characters, @ # . _ </PopoverBody>
                 </UncontrolledPopover>
