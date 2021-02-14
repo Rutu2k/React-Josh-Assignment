@@ -1,3 +1,4 @@
+import { withRouter } from "react-router-dom";
 import {Container, Row, CardDeck} from "reactstrap";
 import { useEffect, useState } from "react";
 import ProductCardComponent from "../components/ProductCardComponent";
@@ -39,4 +40,4 @@ const ProductListContainer = (props) => {
     );
 }
 
-export default ProductListContainer;
+export default withRouter(ProductListContainer);
