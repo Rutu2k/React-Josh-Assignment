@@ -12,7 +12,7 @@ const LoginContainer = () => {
     const history = useHistory();
 
     const dispatch = useDispatch();
-    const result = useSelector(state => state);
+    const result = useSelector((state) => state.loginReducer);
 
     const submitForm = (e) => {
         e.preventDefault();

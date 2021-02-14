@@ -4,8 +4,9 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 import loginReducer from "./reducers/loginReducer";
+import productListReducer from "./reducers/productListReducer";
 
 import ProductListContainer from "./containers/ProductListContainer";
 import LoginContainer from './containers/LoginContainer';
@@ -16,7 +17,7 @@ import HomeComponent from './components/HomeComponent';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
-const store = createStore(loginReducer);
+const store = createStore(combineReducers({loginReducer, productListReducer}));
 
 ReactDOM.render(
   <React.StrictMode>

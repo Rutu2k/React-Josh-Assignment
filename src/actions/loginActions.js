@@ -1,4 +1,4 @@
-import LOGIN_REDUCERS from "../shared/actionConstants";
+import LOGIN_REDUCERS, {PRODUCT_LIST_REDUCER} from "../shared/actionConstants";
 
 export const emailAction = ({e,result}) => {
     return {
@@ -31,5 +31,12 @@ export const emailPasswordAction = (data) => {
     return {
         type: LOGIN_REDUCERS.SET_PASSWORD_ERROR, 
         payload: {emailError: data}
+    }
+}
+
+export const productListAction = (data) => {
+    return {
+        type: PRODUCT_LIST_REDUCER.SET_USERLIST, 
+        payload: {userlist: data}
     }
 }

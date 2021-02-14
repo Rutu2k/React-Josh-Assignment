@@ -1,5 +1,4 @@
 import LOGIN_REDUCERS from "../shared/actionConstants";
-
 let initialState = {
     email : '',
     password : '',

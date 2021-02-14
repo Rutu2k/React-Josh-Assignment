@@ -1,24 +1,29 @@
 import { withRouter } from "react-router-dom";
 import {Container, Row, CardDeck} from "reactstrap";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import ProductCardComponent from "../components/ProductCardComponent";
+import { productListAction } from "../actions/loginActions";
 const axios = require('axios').default;
 
-const ProductListContainer = (props) => {
-    const [userList, setUserList] = useState([]);
+const ProductListContainer = () => {
+    const dispatch = useDispatch();
+    const result = useSelector((state) => state.productListReducer);
+
     useEffect(() => {
         axios.get('https://reqres.in/api/users?page=2')
         .then(function (response) {
-            setUserList(response.data.data);
+            dispatch(productListAction(response.data.data));
         })
         .catch(function (error) {
             console.log(error);
         })
         .then(function () {
         });
-    },[]);
+    },[dispatch]);
 
-    const productList = userList.map((ele) => {
+    const productList = result.userlist.map((ele) => {
         const {id, email, first_name, last_name, avatar} = ele;
         return <ProductCardComponent 
         id = {id} 
